@@ -71,8 +71,9 @@ async def leaderboard(ctx):
 
         if x["score"] > 1:
             timeString = "times"
-            leaderString += user.display_name + " has paid respects " + \
-                str(x["score"]) + " " + timeString + "\n"
+
+        leaderString += user.display_name + " has paid respects " + \
+            str(x["score"]) + " " + timeString + "\n"
 
     await ctx.send(leaderString)
 
