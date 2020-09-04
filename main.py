@@ -63,8 +63,6 @@ async def leaderboard(ctx):
         if i == 10:
             break
 
-        print("{}".format(x))
-
         if i == 1:
             leaderString += "The reigning champ "
         timeString = "time"
@@ -76,7 +74,7 @@ async def leaderboard(ctx):
             leaderString += user.display_name + " has paid respects " + \
                 str(x["score"]) + " " + timeString + "\n"
 
-        await ctx.send(leaderString)
+    await ctx.send(leaderString)
 
 
 @bot.command()
