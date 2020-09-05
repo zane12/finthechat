@@ -13,10 +13,6 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 myclient = pymongo.MongoClient(DBSERVER)
 
-mydb = myclient["finthechat"]
-
-userCol = mydb["users"]
-betCol = mydb["bets"]
 
 bot = commands.Bot(command_prefix='!')
 
@@ -31,6 +27,11 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    guild = message.guild
+    mydb = myclient["finthechat-{}".format(guild.id)]
+
+    userCol = mydb["users"]
+    betCol = mydb["bets"]
 
     if message.author.bot:
         return
@@ -51,6 +52,10 @@ async def on_message(message):
 
 @bot.command()
 async def leaderboard(ctx):
+    guild = ctx.guild.id
+    mydb = myclient["finthechat-{}".format(guild)]
+
+    userCol = mydb["users"]
 
     leaderboard = userCol.find().sort("score", -1)
 
@@ -80,6 +85,11 @@ async def leaderboard(ctx):
 
 @bot.command()
 async def bet(ctx, user: discord.Member, amt: int):
+    guild = ctx.guild.id
+    mydb = myclient["finthechat-{}".format(guild)]
+
+    betCol = mydb["bets"]
+
     check = betCol.find()
 
     found = False
@@ -99,6 +109,12 @@ async def bet(ctx, user: discord.Member, amt: int):
 
 @bot.command()
 async def winBet(ctx, user: discord.Member):
+    guild = ctx.guild.id
+    mydb = myclient["finthechat-{}".format(guild)]
+
+    userCol = mydb["users"]
+    betCol = mydb["bets"]
+
     check = betCol.find()
 
     found = False
@@ -130,6 +146,12 @@ async def winBet(ctx, user: discord.Member):
 
 @ bot.command()
 async def loseBet(ctx, user: discord.Member):
+    guild = ctx.guild.id
+    mydb = myclient["finthechat-{}".format(guild)]
+
+    userCol = mydb["users"]
+    betCol = mydb["bets"]
+
     check = betCol.find()
 
     found = False
