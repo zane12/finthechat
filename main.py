@@ -31,7 +31,6 @@ async def on_message(message):
     mydb = myclient["finthechat-{}".format(guild.id)]
 
     userCol = mydb["users"]
-    betCol = mydb["bets"]
 
     if message.author.bot:
         return
@@ -72,7 +71,7 @@ async def leaderboard(ctx):
             leaderString += "The reigning champ "
         timeString = "time"
 
-        user = await bot.fetch_user(x["user"])
+        user = bot.get_user(x["user"])
 
         if x["score"] > 1:
             timeString = "times"
