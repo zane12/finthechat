@@ -74,7 +74,7 @@ async def leaderboard(ctx):
         user = bot.get_user(x["user"])
 
         if user == None:
-            return
+            continue
 
         if x["score"] > 1:
             timeString = "times"
